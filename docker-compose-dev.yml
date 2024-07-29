@@ -1,0 +1,49 @@
+version: '3.3'
+
+services:
+  web:
+    build: .
+    restart: always
+    expose:
+      - 8000
+    env_file:
+      - ./.env
+    volumes:
+      - .:/home/app/web
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/documents
+    depends_on:
+      - postgres_db
+      - qdrant_store
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 8080:80
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/documents
+    depends_on:
+      - web
+
+  postgres_db:
+    image: postgres:15
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+
+  qdrant_store:
+    image: qdrant/qdrant:latest
+    ports:
+      - 6333:6333
+    volumes:
+      - qdrant_data:/home/app/qdrant_data
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+  qdrant_data:

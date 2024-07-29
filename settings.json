@@ -1,0 +1,168 @@
+[
+    {
+        "id": "asst_D7MDm7q6INHANWx9wR95CdV0",
+        "created_at": 1705336136,
+        "description": "An agency to handle lawsuite related queries",
+        "file_ids": [],
+        "instructions": "./agency_instructions.md\n\nBelow are the specific instructions tailored for you to effectively carry out your assigned role:\n\n1. Deliver given task to respective country agent and make sure they answer only from that country's law information. If you can find respective country's agent, don't try to answer forcefully or using your own knowledge abort with an appropriate answer",
+        "metadata": {},
+        "model": "gpt-3.5-turbo",
+        "name": "lawsuit",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as they do not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "pk_agent",
+                                "title": "recipient"
+                            }
+                        },
+                        "properties": {
+                            "chain_of_thought": {
+                                "description": "Think step by step to determine the correct recipient and message. For multi-step tasks, first break it down into smallersteps. Then, determine the recipient and message for each step.",
+                                "title": "Chain Of Thought",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "pk_agent: An agent to handle specific country's lawsuite related queries. Your country is: pk\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "caller_agent_name": {
+                                "default": "lawsuit",
+                                "description": "The agent calling this tool. Defaults to your name. Do not change it.",
+                                "title": "Caller Agent Name",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "chain_of_thought",
+                            "message",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_3IY9RoNUxuH5AjamxgQnQ5Wt",
+        "created_at": 1705336137,
+        "description": "An agent to handle specific country's lawsuite related queries. Your country is: pk",
+        "file_ids": [],
+        "instructions": "./agency_instructions.md\n\nBelow are the specific instructions tailored for you to effectively carry out your assigned role:\n\n1. Make sure not to use your own knowledge base. If you couldn't find answer from the agents, return with an appropriate message.",
+        "metadata": {},
+        "model": "gpt-3.5-turbo",
+        "name": "pk_agent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as they do not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "enum": [
+                                    "pk_islamic_religious_law_agent",
+                                    "pk_land_property_law_agent"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "chain_of_thought": {
+                                "description": "Think step by step to determine the correct recipient and message. For multi-step tasks, first break it down into smallersteps. Then, determine the recipient and message for each step.",
+                                "title": "Chain Of Thought",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "pk_islamic_religious_law_agent: An Agent to handle specific lawsuit related questions. its country is: pk and category is: Pakistan Islamic and Religious Laws\npk_land_property_law_agent: An Agent to handle specific lawsuit related questions. its country is: pk and category is: Land and Propert Laws\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "caller_agent_name": {
+                                "default": "pk_agent",
+                                "description": "The agent calling this tool. Defaults to your name. Do not change it.",
+                                "title": "Caller Agent Name",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "chain_of_thought",
+                            "message",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_kcDyxDkPxoeATl1J0yBptanq",
+        "created_at": 1705336137,
+        "description": "An Agent to handle specific lawsuit related questions. its country is: pk and category is: Pakistan Islamic and Religious Laws",
+        "file_ids": [
+            "file-21max7B4CDeR3EVrU6SP7JLW",
+            "file-s4D8VpNf9No3Ea2mBe6aQX0y",
+            "file-HQ2kVhU4vKWWsUfQhvnSLwRX",
+            "file-q3bsxDdPdr1ZRg8NkhMNNDwl",
+            "file-ye4vas2liw4ZrzIRhJyqGL82"
+        ],
+        "instructions": "./agency_instructions.md\n\nBelow are the specific instructions tailored for you to effectively carry out your assigned role:\n\n1. Search for the question from the given files, don't use your own knowledge base, if you can't find answer abort with an appropriate message.",
+        "metadata": {},
+        "model": "gpt-3.5-turbo-1106",
+        "name": "pk_islamic_religious_law_agent",
+        "object": "assistant",
+        "tools": [
+            {
+                "type": "retrieval"
+            }
+        ]
+    },
+    {
+        "id": "asst_LgJtpNSdrbvPR703QPvzd87J",
+        "created_at": 1705336418,
+        "description": "An Agent to handle specific lawsuit related questions. its country is: pk and category is: Land and Propert Laws",
+        "file_ids": [
+            "file-5N1y8oDfh9gzpmZOYVeuVTTt",
+            "file-Z3EVPD52Z1HgB3Yazg2R2x9E",
+            "file-wXYgueNIfb2JrSH7hPXod8yo"
+        ],
+        "instructions": "./agency_instructions.md\n\nBelow are the specific instructions tailored for you to effectively carry out your assigned role:\n\n1. Search for the question from the given files, don't use your own knowledge base, if you can't find answer abort with an appropriate message.",
+        "metadata": {},
+        "model": "gpt-3.5-turbo-1106",
+        "name": "pk_land_property_law_agent",
+        "object": "assistant",
+        "tools": [
+            {
+                "type": "retrieval"
+            }
+        ]
+    }
+]
